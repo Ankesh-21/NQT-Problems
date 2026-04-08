@@ -1,5 +1,11 @@
 import java.util.*;
 class Footwear {
+	public static class comparator implements Comparator<Footwear>{
+		@Override
+		public int compare(Footwear f1,Footwear f2){
+			return Integer.compare(f2.getPrice(),f1.getPrice());
+		}
+	}
 	private int footwearId;
 	private String footwearName;
 	private String footwearType;
@@ -42,30 +48,21 @@ class Footwear {
 	public static int getCountByType(Footwear[] fws, String type) {
 		int cnt = 0;
 		for (int i = 0; i < fws.length; i++) {
-			if (fws[i].getFootWearType().equals(type)) {
+			if (fws[i].getFootWearType().equalsIgnoreCase(type)) {
 				cnt += 1;
 			}
 		}
 		return cnt;
 	}
 	public static Footwear getSecondHighestPriceByBrand(Footwear[] fws, String brand) {
-		Footwear f = null;
-		Footwear s = null;
+		List<Footwear> ans = new ArrayList<>();
 		for (int i = 0; i < fws.length; i++) {
-			if (fws[i].getFootwearName().equalsIgnoreCase(brand)) {
-				if (f == null) {
-					f = fws[i];
-				} else {
-					if (fws[i].getPrice() > f.getPrice()) {
-						s = f;
-						f = fws[i];
-					} else if (s == null || s.getPrice() < fws[i].getPrice()) {
-						s = fws[i];
-					}
-				}
+			if (fws[i].getFootwearName().equalsIgnoreCase(brand)) {				
+				ans.add(fws[i]);
 			}
 		}
-		return s;
+		Collections.sort(ans,new comparator());
+		return ans.get(1);
 	}
 }
 public class footwearProgram {
@@ -92,13 +89,14 @@ public class footwearProgram {
 		}
 
 		String type = sc.nextLine();
-		System.out.println(Footwear.getCountByType(fws, type));
+		System.out.print(Footwear.getCountByType(fws, type));
 		String brand = sc.nextLine();
 		Footwear ans = Footwear.getSecondHighestPriceByBrand(fws, brand);
 		if (ans == null) {
 			System.out.println("No Brand Available");
 			return;
 		}
+        //System.out.println(
 		System.out.println(ans.getFootwearId());
 		System.out.println(ans.getFootwearName());
 		System.out.println(ans.getPrice());
