@@ -51,20 +51,22 @@ class Solution{
 		for(int i = 0;i < n;i++){
 			String board = sc.nextLine();
 			int m = sc.nextInt();
-			sc.nextLine();
+			// sc.nextLine();
 			List<Integer> Reads = new ArrayList<>();
 			for(int j = 0;j < m;j++){
 				int k = sc.nextInt();
-				sc.nextLine();
+				// sc.nextLine();
 				Reads.add(k);
 			}
+			// sc.nextLine();
 			ElectricBillMeter.addReading(board,Reads);
 		}
+		sc.nextLine();
 		String board = sc.nextLine();
 		int start = sc.nextInt();
-		sc.nextLine();
+		// sc.nextLine();
 		int end = sc.nextInt();
-		sc.nextLine();
+		// sc.nextLine();
 		ElectricBillMeter.getAverage(board,start,end);
 		sc.close();
 	}
